@@ -36,7 +36,7 @@
     "peer-socket-tos": "default",
     "pex-enabled": true,
     "port-forwarding-enabled": true,
-    "preallocation": 1,
+    "preallocation": 0,
     "prefetch-enabled": true,
     "queue-stalled-enabled": true,
     "queue-stalled-minutes": 30,
