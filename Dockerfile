@@ -1,11 +1,12 @@
-FROM hypriot/rpi-python
-MAINTAINER Rob Sharp <qnm@fea.st>
+FROM python:slim
+
+MAINTAINER Carlos Eduardo <carlosedp@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y -q transmission-daemon
 
-RUN sed -i "s/127.0.0.1/*.*.*.*/" /etc/transmission-daemon/settings.json
+ADD settings.json /etc/transmission-daemon/settings.json
 
 VOLUME /var/lib/transmission-daemon/downloads
 VOLUME /etc/transmission-daemon
