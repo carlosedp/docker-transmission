@@ -7,6 +7,8 @@ By design, it will only run the **transission** daemon, exposing its standard
 port and exporting volumes for both the *configuration* and the *data*
 (including download) directories.
 
+The default username and password for the Web GUI is "transmission".
+
 You can execute it with:
 
 ```
