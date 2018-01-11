@@ -4,7 +4,9 @@ MAINTAINER Carlos Eduardo <carlosedp@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y -q transmission-daemon
+RUN apt-get update && \
+    apt-get install -y -q transmission-daemon && \
+    rm -rf /var/lib/apt/lists/*
 
 ADD settings.json /etc/transmission-daemon/settings.json
 
