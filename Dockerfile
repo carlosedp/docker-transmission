@@ -10,7 +10,7 @@ RUN apt-get update && \
 
 ADD settings.json /etc/transmission-daemon/settings.json
 
-VOLUME /var/lib/transmission-daemon/downloads
+VOLUME /volumes/media
 VOLUME /etc/transmission-daemon
 
 EXPOSE 9091
