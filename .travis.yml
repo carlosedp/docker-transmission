@@ -1,0 +1,36 @@
+sudo: required
+
+services:
+ - docker
+
+env:
+  global:
+    - IMAGE=carlosedp/arm-transmission
+    - QEMU_VERSION=v2.9.1-1
+  matrix:
+    - TARGET=amd64 ARCH=amd64 TAG=amd64
+    - TARGET=aarch64 ARCH=aarch64 TAG=arm64
+    - TARGET=arm32v6 ARCH=arm TAG=arm
+
+language: bash
+
+script:
+  - ./travis-build.sh
+  - >
+    if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      # push image
+      docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+      docker push "$IMAGE":"$TAG"
+    fi
+after_success:
+  - echo "Downloading manifest-tool"
+  - wget https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+  - mv manifest-tool-linux-amd64 manifest-tool
+  - chmod +x manifest-tool
+  - ./manifest-tool --version
+  - echo "Pushing manifest $image:latest"
+  - >
+    ./manifest-tool push from-args \
+        --platforms linux/amd64,linux/arm,linux/arm64 \
+        --template "$image:ARCH-$TRAVIS_COMMIT" \
+        --target "$image:latest"

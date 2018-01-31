@@ -1,12 +1,17 @@
-FROM python:slim
+ARG target=arm32v6
 
-MAINTAINER Carlos Eduardo <carlosedp@gmail.com>
+FROM $target/alpine
 
-ENV DEBIAN_FRONTEND noninteractive
+ARG arch=arm
 
-RUN apt-get update && \
-    apt-get install -y -q transmission-daemon && \
-    rm -rf /var/lib/apt/lists/*
+ENV ARCH=$arch
+
+COPY tmp/qemu-$ARCH-static /usr/bin/qemu-$ARCH-static
+
+RUN apk update && \
+    apk upgrade && \
+    apk add transmission-daemon && \
+    rm -rf /var/cache/apk/*
 
 ADD settings.json /etc/transmission-daemon/settings.json
 
@@ -18,4 +23,3 @@ EXPOSE 51413
 EXPOSE 51413/udp
 
 CMD ["/usr/bin/transmission-daemon", "-f", "-g", "/etc/transmission-daemon"]
-
