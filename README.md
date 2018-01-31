@@ -1,16 +1,18 @@
 Transmission Daemon
 ===================
 
-Very light **transmission-daemon** installation based on the slim python image that supports many architectures (amd64, ARM for the Raspberry Pi, etc).
+[![Build Status](https://travis-ci.org/carlosedp/docker-transmission.svg?branch=master)](https://travis-ci.org/carlosedp/docker-transmission)
 
-By design, it will only run the **transission** daemon, exposing its standard
+Very light **transmission-daemon** installation based on the alpine image that supports many architectures (amd64, ARM32 for the Raspberry Pi and ARM64). This build is automatically pushed to  [DockerHub](https://hub.docker.com/r/carlosedp/arm-transmission/) and has a multi-architecture manifest so it's possible to just `docker pull carlosedp/arm-transmission` and the manifest will download the correct architecture.
+
+By design, it will only run the **transmission** daemon, exposing its standard
 port and exporting volumes for both the *configuration* and the *data*
 (including download) directories.
 
 You can execute it with:
 
 ```
-export TORRENT_DIR=/media/external
+export MEDIA=/mnt/external
 
 docker volume create transmission_config
 
@@ -19,12 +21,12 @@ docker run -d \
   -p  51413:51413 \
   -p  51413:51413/udp \
   --restart='always' \
-  -v $TORRENT_DIR:/var/lib/transmission-daemon/downloads \
+  -v ${MEDIA}:/volumes/media \
   -v transmission_config:/etc/transmission-daemon \
-  --name transmission carlosedp/rpi-transmission
+  --name transmission carlosedp/arm-transmission
 ```
 
-In my case, `/media/external` represents an external drive mounted on the docker
+In my case, `/mnt/external` represents an external drive mounted on the docker
 host, and the Docker volume transmission_config contains all the settings for the container.
 
 The use of `restart='always'` ensures the container starts with the docker host.
