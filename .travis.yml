@@ -3,6 +3,8 @@ sudo: required
 services:
  - docker
 
+language: bash
+
 env:
   global:
     - IMAGE=carlosedp/arm-transmission
@@ -11,8 +13,6 @@ env:
     - TARGET=amd64 ARCH=amd64 TAG=amd64
     - TARGET=aarch64 ARCH=aarch64 TAG=arm64
     - TARGET=arm32v6 ARCH=arm TAG=arm
-
-language: bash
 
 script:
   - ./travis-build.sh
