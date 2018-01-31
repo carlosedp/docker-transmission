@@ -32,5 +32,5 @@ after_success:
   - >
     ./manifest-tool push from-args \
         --platforms linux/amd64,linux/arm,linux/arm64 \
-        --template "$image:ARCH-$TRAVIS_COMMIT" \
+        --template "$image:ARCH" \
         --target "$image:latest"
