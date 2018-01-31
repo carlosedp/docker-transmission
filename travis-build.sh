@@ -24,7 +24,7 @@ fi
 popd
 
 # Build image
-docker build -t $IMAGE:$TAG --build-arg target=$TARGET arch=$ARCH .
+docker build -t $IMAGE:$TAG --build-arg target=$TARGET --build-arg arch=$ARCH .
 
 # Test image
 docker run --rm $IMAGE:$TAG uname -a
