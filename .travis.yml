@@ -22,15 +22,14 @@ script:
       docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
       docker push "$IMAGE":"$TAG"
     fi
-after_success:
   - echo "Downloading manifest-tool"
   - wget https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
   - mv manifest-tool-linux-amd64 manifest-tool
   - chmod +x manifest-tool
   - ./manifest-tool --version
-  - echo "Pushing manifest $image:latest"
+  - echo "Pushing manifest "$IMAGE":latest"
   - >
     ./manifest-tool push from-args \
         --platforms linux/amd64,linux/arm,linux/arm64 \
-        --template "$image:ARCH" \
-        --target "$image:latest"
+        --template "$IMAGE:ARCH" \
+        --target "$IMAGE:latest"
