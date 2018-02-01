@@ -17,18 +17,17 @@ env:
     - TARGET=aarch64 ARCH=aarch64 TAG=arm64
     - TARGET=arm32v6 ARCH=arm TAG=arm
 
+script:
+  - ./travis-build.sh
+  - >
+    if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      # Push image
+      docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+      docker push "$IMAGE":"$TAG"
+    fi
 
 jobs:
   include:
-    - stage: build
-      script:
-        - ./travis-build.sh
-        - >
-          if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
-            # Push image
-            docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-            docker push "$IMAGE":"$TAG"
-          fi
     - stage: deploy
       script:
         - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
@@ -44,5 +43,5 @@ jobs:
               --template "$IMAGE:ARCH" \
               --target "$IMAGE:latest"
       env:
-        # Overwrite env to avoid running stage for entire matrix
+        # Overwrite env to avoid running stage for entire
         TARGET=none ARCH=none TAG=none
