@@ -4,7 +4,8 @@ FROM $target/alpine
 ARG arch=arm
 ENV ARCH=$arch
 
-COPY tmp/qemu-$ARCH-static /usr/bin/qemu-$ARCH-static
+# Trick docker build in case qemu binary is not in dir.
+COPY .blank tmp/qemu-$ARCH-static* /usr/bin/
 
 RUN apk update && \
     apk upgrade && \

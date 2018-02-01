@@ -1,7 +1,7 @@
 Transmission Daemon
 ===================
 
-[![Build Status](https://travis-ci.org/carlosedp/docker-transmission.svg?branch=master)](https://travis-ci.org/carlosedp/docker-transmission)
+[![Build Status](https://travis-ci.org/carlosedp/docker-transmission.svg?branch=master)](https://travis-ci.org/carlosedp/docker-transmission) [![](https://images.microbadger.com/badges/image/carlosedp/transmission.svg)](https://microbadger.com/images/carlosedp/transmission "Get your own image badge on microbadger.com")
 
 Very light **transmission-daemon** installation based on the alpine image that supports many architectures (amd64, ARM32 for the Raspberry Pi and ARM64). This build is automatically pushed to  [DockerHub](https://hub.docker.com/r/carlosedp/arm-transmission/) and has a multi-architecture manifest so it's possible to just `docker pull carlosedp/arm-transmission` and the manifest will download the correct architecture.
 
