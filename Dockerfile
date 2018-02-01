@@ -1,8 +1,8 @@
-ARG TARGET=arm32v6
-FROM $TARGET/alpine
+ARG target=arm32v6
+FROM $target/alpine
 
-ARG QEMU_ARCH=arm
-ENV ARCH=$QEMU_ARCH
+ARG arch=arm
+ENV ARCH=$arch
 
 COPY tmp/qemu-$ARCH-static /usr/bin/qemu-$ARCH-static
 

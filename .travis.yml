@@ -11,11 +11,11 @@ env:
     - QEMU_VERSION=v2.9.1-1
   matrix:
     # TARGET = Base image architecture to be used
-    # QEMU_ARCH = qemu binary to be downloaded from https://github.com/multiarch/qemu-user-static/releases
+    # ARCH = qemu binary to be downloaded from https://github.com/multiarch/qemu-user-static/releases
     # TAG = Tag to be applied to the image when upload to DockerHub
-    - TARGET=amd64 QEMU_ARCH=amd64 TAG=amd64
-    - TARGET=aarch64 QEMU_ARCH=aarch64 TAG=arm64
-    - TARGET=arm32v6 QEMU_ARCH=arm TAG=arm
+    - TARGET=amd64 ARCH=amd64 TAG=amd64
+    - TARGET=aarch64 ARCH=aarch64 TAG=arm64
+    - TARGET=arm32v6 ARCH=arm TAG=arm
 
 script:
   - ./travis-build.sh
@@ -42,4 +42,4 @@ jobs:
               --template "$IMAGE:ARCH" \
               --target "$IMAGE:latest"
       env:
-        TARGET=none QEMU_ARCH=none TAG=none
+        TARGET=none ARCH=none TAG=none
